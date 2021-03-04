@@ -54,14 +54,3 @@ my_layout = Layout(title="Prominent US Fires")  # give layout for ^
 fig = {"data": data, "layout": my_layout}
 
 offline.plot(fig, filename="us_fires.html")
-
-
-"""
-data = [Scattergeo(lon=lons, lat=lats)]  # taking scatterplots and putting on a map
-
-my_layout = Layout(title="Global Fires")  # give layout for ^
-
-fig = {"data": data, "layout": my_layout}
-
-offline.plot(fig, filename="global_fires.html")
-"""
