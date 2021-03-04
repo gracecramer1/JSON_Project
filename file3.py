@@ -17,27 +17,51 @@ lons = []
 lats = []
 
 for fire in list_of_fires:
-    brightness = fire["bright_t31"]
+    brightness = fire["brightness"]
     lon = fire["longitude"]
     lat = fire["latitude"]
-    brights.append(brightness)
-    lons.append(lon)
-    lats.append(lat)
+    if brightness > 450:
+        brights.append(brightness)
+        lons.append(lon)
+        lats.append(lat)
 
-print(brights[:10])
-print(lons[:10])
-print(lats[:10])
+# print(brights[:10])
+# print(lons[:10])
+# print(lats[:10])
 
-print(fire_data["bright_t31"])
-"""
+
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
-data = [Scattergeo(lon=lons, lat=lats)]  # taking scatterplots and putting on a map
+data = [
+    {
+        "type": "scattergeo",
+        "lon": lons,
+        "lat": lats,
+        "marker": {
+            "size": [0.02 * brightness for brightness in brights],
+            "color": brights,
+            "colorscale": "Viridis",
+            "reversescale": True,
+            "colorbar": {"title": "Brightness"},
+        },
+    }
+]
+Scattergeo(lon=lons, lat=lats)  # taking scatterplots and putting on a map
 
-my_layout = Layout(title="Global Earthquakes")  # give layout for ^
+my_layout = Layout(title="Prominent US Fires")  # give layout for ^
 
 fig = {"data": data, "layout": my_layout}
 
-offline.plot(fig, filename="global_earthquakes.html")
+offline.plot(fig, filename="us_fires.html")
+
+
+"""
+data = [Scattergeo(lon=lons, lat=lats)]  # taking scatterplots and putting on a map
+
+my_layout = Layout(title="Global Fires")  # give layout for ^
+
+fig = {"data": data, "layout": my_layout}
+
+offline.plot(fig, filename="global_fires.html")
 """
